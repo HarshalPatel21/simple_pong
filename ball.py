@@ -16,11 +16,11 @@ class Ball(pg.sprite.Sprite):
         self.rect.center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 
         # movements
-        self.speed = 2
+        self.speed = 6
        
 
         self.position = pg.Vector2((SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-        self.velocity = pg.Vector2((self.speed*2,self.speed))
+        self.velocity = pg.Vector2((2.5*self.speed,self.speed))
         
         self.new_x = SCREEN_WIDTH/2
         self.new_y = SCREEN_HEIGHT/2
@@ -48,18 +48,27 @@ class Ball(pg.sprite.Sprite):
             self.velocity.x = -self.velocity.x
 
         # player collisions
-        if self.player_1_collide and self.position.x >= PLAYERS_X_POS[0]:
-            self.velocity.x = - self.velocity.x
-            self.position.x += 3
-        
-        if self.player_2_collide and self.position.x <= PLAYERS_X_POS[1]: 
-            self.velocity.x = - self.velocity.x
-            self.position.x -= 3
 
+        if (self.player_1_collide and self.velocity.x < 0) or (self.player_2_collide and self.velocity.x > 0):
+            self.velocity.x = - self.velocity.x
+        
+        
         self.position += self.velocity
         self.rect.center = self.position
+
+    def point(self):
+
+        if self.position.x > SCREEN_WIDTH-10:
+            self.player_1_sprite.score += 1
+
+        if self.position.x < 10:
+            self.player_2_sprite.score += 1
 
     def update(self,dt):
         self.moving()
         self.player_1_collide = self.collision_sprite(self, self.player_1_sprite)
         self.player_2_collide = self.collision_sprite(self,self.player_2_sprite)
+        self.point()
+        # print(self.player_1_sprite.score,'-',self.player_2_sprite.score)
+ 
+        

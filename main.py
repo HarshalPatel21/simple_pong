@@ -12,6 +12,8 @@ class Game:
         self.level = Level()
         self.clock = pg.time.Clock()
 
+        
+
     def run(self):
         while True:
             for event in pg.event.get():
@@ -21,9 +23,8 @@ class Game:
 
             dt = self.clock.tick(60)/1000
             self.level.run(dt)
-            pg.display.update()
             
-
+            pg.display.update()
 
 
 if __name__ == "__main__":

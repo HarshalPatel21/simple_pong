@@ -13,6 +13,7 @@ class Player(pg.sprite.Sprite):
         self.rect.center = (PLAYERS_X_POS[self.index] , SCREEN_HEIGHT/2)
         self.position = pg.Vector2(PLAYERS_X_POS[self.index], SCREEN_HEIGHT/2)
         self.velocity = pg.Vector2(x=0,y=10)
+        self.score = 0
 
     def input(self,dt):
 
