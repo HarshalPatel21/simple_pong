@@ -16,7 +16,7 @@ class Ball(pg.sprite.Sprite):
         self.rect.center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 
         # movements
-        self.speed = 0.2
+        self.speed = 2
        
 
         self.position = pg.Vector2((SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
@@ -38,5 +38,5 @@ class Ball(pg.sprite.Sprite):
             self.velocity.x = -self.velocity.x
 
 
-    def update(self):
+    def update(self,dt):
         self.moving()

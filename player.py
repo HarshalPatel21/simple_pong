@@ -12,12 +12,11 @@ class Player(pg.sprite.Sprite):
         self.index = index
         self.rect.center = (PLAYERS_X_POS[self.index] , SCREEN_HEIGHT/2)
         self.position = pg.Vector2(PLAYERS_X_POS[self.index], SCREEN_HEIGHT/2)
-        self.velocity = pg.Vector2(x=0,y=1)
+        self.velocity = pg.Vector2(x=0,y=10)
 
-    def input(self):
+    def input(self,dt):
 
         keys = pg.key.get_pressed()
-        
         # down
         if keys[PLAYERS_MOVEMENT[self.index][0]]:
             self.position += self.velocity
@@ -34,5 +33,5 @@ class Player(pg.sprite.Sprite):
         
         self.rect.center = self.position
 
-    def update(self):
-        self.input()
+    def update(self,dt):
+        self.input(dt)
