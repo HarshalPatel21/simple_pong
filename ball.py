@@ -1,6 +1,7 @@
 import pygame as pg 
 from settings import *
 import math
+from random import choice
 
 class Ball(pg.sprite.Sprite):
 
@@ -16,10 +17,11 @@ class Ball(pg.sprite.Sprite):
         self.rect.center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 
         # movements
-        self.speed = 6
+        self.speed = 5
        
 
         self.position = pg.Vector2((SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+        # self.velocity = pg.Vector2((self.speed,self.speed))
         self.velocity = pg.Vector2((2.5*self.speed,self.speed))
         
         self.new_x = SCREEN_WIDTH/2
@@ -30,6 +32,8 @@ class Ball(pg.sprite.Sprite):
 
         self.player_1_collide = False
         self.player_2_collide = False
+        
+        
 
     def collision_sprite(self, ball, player):
         if pg.sprite.collide_rect(ball,player):
@@ -44,6 +48,7 @@ class Ball(pg.sprite.Sprite):
         if self.position.y > SCREEN_HEIGHT-10 or self.position.y < 10:
             self.velocity.y = -self.velocity.y
 
+
         if self.position.x > SCREEN_WIDTH-10 or self.position.x < 10:
             self.velocity.x = -self.velocity.x
 
@@ -52,11 +57,10 @@ class Ball(pg.sprite.Sprite):
         if (self.player_1_collide and self.velocity.x < 0) or (self.player_2_collide and self.velocity.x > 0):
             self.velocity.x = - self.velocity.x
         
-        
         self.position += self.velocity
         self.rect.center = self.position
 
-    def point(self):
+    def score(self):
 
         if self.position.x > SCREEN_WIDTH-10:
             self.player_1_sprite.score += 1
@@ -68,7 +72,7 @@ class Ball(pg.sprite.Sprite):
         self.moving()
         self.player_1_collide = self.collision_sprite(self, self.player_1_sprite)
         self.player_2_collide = self.collision_sprite(self,self.player_2_sprite)
-        self.point()
+        self.score()
         # print(self.player_1_sprite.score,'-',self.player_2_sprite.score)
  
         
